@@ -20,7 +20,7 @@ public function sayGreetings(string name, string apiKey) returns json|error {
     map<string> additionalHeaders = {
         "API-Key" : apiKey
     };
-    json|error response = greetingClient->get(string `/inyy/greetingserviceinternal0302/1.0.0?name=${name}`, additionalHeaders);
+    json|error response = greetingClient->get(string `/inyy/greetingserviceinternal/1.0.0?name=${name}`, additionalHeaders);
     if response is error {
         io:println("GET request error:" + response.detail().toString());
     } else {
