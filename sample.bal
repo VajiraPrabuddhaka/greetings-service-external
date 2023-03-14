@@ -4,16 +4,17 @@ import ballerina/io;
 service / on new http:Listener(8090) {
     resource function get .(
         string name,
-        @http:Header string apiKey
+        @http:Header string apiKey,
+        @http:Header string internalHost
     ) returns json|error {
-        return sayGreetings(name, apiKey);
+        return sayGreetings(name, apiKey, internalHost);
     }
 }
 
-public function sayGreetings(string name, string apiKey) returns json|error {
+public function sayGreetings(string name, string apiKey, string host) returns json|error {
     // Creates a new client with the Basic REST service URL.
     // https://webhook.site/aff29f66-fcd7-40d5-ab88-6bc9878cccf5
-    http:Client greetingClient = check new ("https://75a0c9ed-5a4c-43da-89ed-32bfa6e84033-tenv2-inyy-internal.prod-us-east-azure.internal.choreo-st.choreoapis.dev");
+    http:Client greetingClient = check new (string `https://${host}`);
 
     // Sends a `GET` request to the "/albums" resource.
     // The verb is not mandatory as it is default to "GET".
